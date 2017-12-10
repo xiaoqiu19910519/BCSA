@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import ReactRouterDom from 'react-router-dom';
-import Header from './components/Header'
+import {Router, Route, hashHistory} from 'react-router';
+import Index from './container/index.jsx';
+import Login from './container/login/login.jsx';
+import MineIndex from './container/mine/MineIndex.jsx';
+import OrderIndex from './container/order/OrderIndex.jsx';
+import Mianqian from './container/mianqian.jsx'
 import { Icon, Grid } from 'antd-mobile';
- 
 import 'antd-mobile/dist/antd-mobile.css';
+import '../css/style.scss';
 (function (doc, win) {
 	var docEl = doc.documentElement,
 		resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -23,11 +27,18 @@ import 'antd-mobile/dist/antd-mobile.css';
 	doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
 export default class Root extends React.Component {
-    
+
     render() {
         return ( 
             <div id='Root'>
-                <Icon type="left" size='md' color="red" />
+                <Router history={hashHistory}>
+					<Route path='/' component = {Login}></Route>	
+					<Route path='/index' component = {Index}>
+						<Route path='/mine' component = {MineIndex}></Route>
+						<Route path='/order' component = {OrderIndex}></Route>
+					</Route>
+					<Route exact path='/mianqian' component = {Mianqian}></Route>
+				</Router>
             </div> 
         )
     }
